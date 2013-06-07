@@ -67,7 +67,7 @@ function showMenuWin(title){
 	if(!winMenu){
 	 winMenu = Ext.create('Ext.Window', {
             title: title,
-            width: 300,
+            width: 360,
             //height: 200,
             closeAction: 'hide',
             layout: 'fit',
@@ -133,8 +133,8 @@ function updateMenuForm(action,id,name,isSpecial){
 	if('edit'==action){
 		fm.findField('id').setValue(id);
 		fm.findField('name').setValue(name);
-		fm.findField('isSpecial').checked=isSpecial;
-		title='Edit a menu';
+		fm.findField('isSpecial').setValue(isSpecial);
+	    title='Edit a menu';
 	}else{
 		fm.findField('id').setValue('');
 		fm.findField('name').setValue('');
