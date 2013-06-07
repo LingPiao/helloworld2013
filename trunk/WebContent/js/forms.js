@@ -16,18 +16,23 @@ var fmMenu = new Ext.widget({
 			name:'name',
 			afterLabelTextTpl: fieldRequiredTip,
 			allowBlank: false
-           },
-		   {xtype:'hidden',
-			name:'id',
-			value:''
-           },
-		   {xtype:'hidden',
-			name:'action',
-			value:'add'
-           },
-		   {xtype:'hidden',
-			name:'language',
-			value:language
+           },{
+				xtype: 'checkboxfield',
+				name: 'isSpecial',
+				inputValue: 1,
+				fieldLabel: 'isSpecial'
+		   },{
+			   xtype:'hidden',
+				name:'id',
+				value:''
+           },{
+			   xtype:'hidden',
+				name:'action',
+				value:'add'
+           },{
+			   xtype:'hidden',
+				name:'language',
+				value:language
            }
 		  ], 
 	buttons:[{text:'Submit',handler:function(){  
@@ -40,7 +45,8 @@ var fmMenu = new Ext.widget({
                             params : {name: basicForm.findField('id').getValue(),
 									  name: basicForm.findField('name').getValue(),
 								      action: basicForm.findField('action').getValue(),
-								      language:basicForm.findField('language').getValue()							
+								      language:basicForm.findField('language').getValue(),
+								      isSpecial:basicForm.findField('isSpecial').getValue()
 							},
                             success : function(form,action){
 								 menuStore.load();
@@ -82,7 +88,8 @@ function editMenu(){
 		//alert('ID='+slct[0].get('id')+',Name='+slct[0].get('name'));
 		var id = slct[0].get('id');
 		var name = slct[0].get('name');
-		updateMenuForm('edit',id,name);		
+		var isSpecial = slct[0].get('isSpecial');
+		updateMenuForm('edit',id,name,isSpecial);		
 	}else{
 		alert('Select one item to edit');
 	}
@@ -118,7 +125,7 @@ function removeMenus(){
 	}
 }
 
-function updateMenuForm(action,id,name){
+function updateMenuForm(action,id,name,isSpecial){
 	var fm = fmMenu.getForm();
 	fm.findField('language').setValue(language);
 	fm.findField('action').setValue(action);
@@ -126,6 +133,7 @@ function updateMenuForm(action,id,name){
 	if('edit'==action){
 		fm.findField('id').setValue(id);
 		fm.findField('name').setValue(name);
+		fm.findField('isSpecial').checked=isSpecial;
 		title='Edit a menu';
 	}else{
 		fm.findField('id').setValue('');

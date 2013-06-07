@@ -44,15 +44,15 @@ public class MenuEditorAction extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (appPath == null)
-			appPath = this.getServletContext().getRealPath("/");
+		if (appPath == null) appPath = this.getServletContext().getRealPath("/");
 		String action = ServletUtils.getStringValue(request, "action");
 		String name = ServletUtils.getStringValue(request, "name");
 		String language = ServletUtils.getStringValue(request, "language");
 		XmlUtils xmlUtils = XmlUtils.build(language, appPath);
 		System.out.println("=============action:" + action);
 		if ("add".equals(action)) {
-			MenuItem mi = new MenuItem(xmlUtils.getMaxId4Menu(), name);
+			boolean isSpecial = ServletUtils.getBooleanValue(request, "isSpecial");
+			MenuItem mi = new MenuItem(xmlUtils.getMaxId4Menu(), name, isSpecial);
 			emenuDao.saveMenu(mi);
 		} else if ("edit".equals(action)) {
 			String id = ServletUtils.getStringValue(request, "id");

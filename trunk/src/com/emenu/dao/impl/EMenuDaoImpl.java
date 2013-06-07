@@ -61,17 +61,17 @@ public class EMenuDaoImpl implements EMenuDao {
 			root.add(itemElement);
 			itemElement.addAttribute("id", String.valueOf(menuItem.getId()));
 			itemElement.addAttribute("name", menuItem.getName());
+			itemElement.addAttribute("isSpecial", menuItem.isSpecial() ? "true" : "false");
 
 			output = new XMLWriter(new FileWriter(new File(xml)));
 			output.write(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (output != null)
-				try {
-					output.close();
-				} catch (IOException e) {
-				}
+			if (output != null) try {
+				output.close();
+			} catch (IOException e) {
+			}
 		}
 	}
 
@@ -110,11 +110,10 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			removeFile(html);
 		} finally {
-			if (output != null)
-				try {
-					output.close();
-				} catch (IOException e) {
-				}
+			if (output != null) try {
+				output.close();
+			} catch (IOException e) {
+			}
 		}
 
 	}
@@ -220,11 +219,10 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			r = false;
 		} finally {
-			if (output != null)
-				try {
-					output.close();
-				} catch (IOException e) {
-				}
+			if (output != null) try {
+				output.close();
+			} catch (IOException e) {
+			}
 		}
 		return r;
 	}
@@ -253,11 +251,10 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			r = false;
 		} finally {
-			if (output != null)
-				try {
-					output.close();
-				} catch (IOException e) {
-				}
+			if (output != null) try {
+				output.close();
+			} catch (IOException e) {
+			}
 		}
 		return r;
 	}
@@ -322,6 +319,10 @@ public class EMenuDaoImpl implements EMenuDao {
 				if (Long.parseLong(i.getText()) == menuItem.getId()) {
 					Attribute n = e.attribute("name");
 					n.setValue(menuItem.getName());
+
+					Attribute isp = e.attribute("isSpecial");
+					isp.setValue(menuItem.isSpecial() ? "true" : "false");
+
 					r = true;
 				}
 			}
@@ -331,11 +332,10 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			r = false;
 		} finally {
-			if (output != null)
-				try {
-					output.close();
-				} catch (IOException e) {
-				}
+			if (output != null) try {
+				output.close();
+			} catch (IOException e) {
+			}
 		}
 		return r;
 	}
