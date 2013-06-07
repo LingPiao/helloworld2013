@@ -19,6 +19,15 @@ public class ServletUtils {
 		return (String) v;
 	}
 
+	public static boolean getBooleanValue(HttpServletRequest request, String fieldName) {
+		Object v = request.getParameter(fieldName);
+		if (v == null) {
+			return false;
+		}
+		String sv = (String) v;
+		return "1".equals(sv) || "true".equals(sv);
+	}
+
 	public static long getLongValue(HttpServletRequest request, String fieldName) {
 		String v = getStringValue(request, fieldName);
 		if (v == null) {

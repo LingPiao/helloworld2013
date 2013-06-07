@@ -125,7 +125,10 @@ Ext.onReady(function() {
 		}, {
 			name : 'name',
 			mapping : '@name'
-		} ]
+		}, {
+			name : 'isSpecial',
+			mapping : '@isSpecial'
+		}  ]
 	});
 
 	// create the Data Store
@@ -163,6 +166,10 @@ Ext.onReady(function() {
 			text : "Name",
 			dataIndex : 'name',
 			width : 350
+		}, {
+			text : "IsSpecial",
+			dataIndex : 'isSpecial',
+			width : 60
 		} ],
 		// renderTo:'gridView',
 		// width: 300,
