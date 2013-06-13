@@ -249,6 +249,7 @@ Ext.onReady(function() {
 		},{
 			text : "BelongsTo",
 			dataIndex : 'belongsTo',
+			renderer: belongsToRender,
 			width : 350
 		}, {
 			text : "Enabled",
@@ -257,10 +258,25 @@ Ext.onReady(function() {
 		}, {
 			text : "Price(kr)",
 			dataIndex : 'price',
+			align: 'right',
 			width : 80
 		} ],
 		border : false
 	});
+
+    function belongsToRender(ids){
+		var idList = ids.split(',');
+		var menuNames='';
+		for(var i=0;i<idList.length;i++){
+			var mn = menuStore.getById(idList[i]).get('name');
+			if( i==0 ){
+				menuNames = mn
+			}else{
+				menuNames = menuNames+', '+mn;
+			}
+		}
+		return menuNames;
+	}
 
 	var contentPanel = {
 		id : 'content-panel',
