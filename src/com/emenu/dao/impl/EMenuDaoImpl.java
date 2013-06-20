@@ -1,6 +1,7 @@
 package com.emenu.dao.impl;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -53,25 +54,34 @@ public class EMenuDaoImpl implements EMenuDao {
 		Document document = null;
 		XMLWriter output = null;
 		String xml = XmlUtils.getInstance().getMainMenuXml();
+		File xmlFile = new File(xml);
+		Element root = null;
 		try {
-			document = saxReader.read(xml);
 
-			Element root = document.getRootElement();
+			if (xmlFile.exists()) {
+				document = saxReader.read(xml);
+				root = document.getRootElement();
+			} else {
+				document = DocumentHelper.createDocument();
+				root = document.addElement("MainMenu");
+			}
+
 			Element itemElement = DocumentHelper.createElement("MenuItem");
 			root.add(itemElement);
 			itemElement.addAttribute("id", String.valueOf(menuItem.getId()));
 			itemElement.addAttribute("name", menuItem.getName());
 			itemElement.addAttribute("isSpecial", menuItem.isSpecial() ? "true" : "false");
 
-			output = new XMLWriter(new FileWriter(new File(xml)));
+			output = new XMLWriter(new FileOutputStream(new File(xml)));
 			output.write(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (output != null) try {
-				output.close();
-			} catch (IOException e) {
-			}
+			if (output != null)
+				try {
+					output.close();
+				} catch (IOException e) {
+				}
 		}
 	}
 
@@ -88,10 +98,18 @@ public class EMenuDaoImpl implements EMenuDao {
 		Document document = null;
 		XMLWriter output = null;
 		String xml = XmlUtils.getInstance().getDishesXml();
+		File xmlFile = new File(xml);
+		Element root = null;
 		try {
-			document = saxReader.read(xml);
 
-			Element root = document.getRootElement();
+			if (xmlFile.exists()) {
+				document = saxReader.read(xml);
+				root = document.getRootElement();
+			} else {
+				document = DocumentHelper.createDocument();
+				root = document.addElement("Dishes");
+			}
+
 			Element itemElement = DocumentHelper.createElement("Dish");
 			root.add(itemElement);
 			itemElement.addAttribute("id", String.valueOf(dish.getId()));
@@ -104,16 +122,17 @@ public class EMenuDaoImpl implements EMenuDao {
 			itemElement.addAttribute("file", descFile);
 			itemElement.addText(dish.getIntroduction());
 
-			output = new XMLWriter(new FileWriter(new File(xml)));
+			output = new XMLWriter(new FileOutputStream(new File(xml)));
 			output.write(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			removeFile(html);
 		} finally {
-			if (output != null) try {
-				output.close();
-			} catch (IOException e) {
-			}
+			if (output != null)
+				try {
+					output.close();
+				} catch (IOException e) {
+				}
 		}
 
 	}
@@ -206,7 +225,7 @@ public class EMenuDaoImpl implements EMenuDao {
 			if (isMenuItem) {
 				cleanReferences(ids);
 			}
-			output = new XMLWriter(new FileWriter(new File(xmlFile)));
+			output = new XMLWriter(new FileOutputStream(new File(xmlFile)));
 			output.write(document);
 
 			for (String f : htmlFiles) {
@@ -219,10 +238,11 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			r = false;
 		} finally {
-			if (output != null) try {
-				output.close();
-			} catch (IOException e) {
-			}
+			if (output != null)
+				try {
+					output.close();
+				} catch (IOException e) {
+				}
 		}
 		return r;
 	}
@@ -245,16 +265,17 @@ public class EMenuDaoImpl implements EMenuDao {
 				aRefIds.setText(ServletUtils.getIds(rids));
 				r = true;
 			}
-			output = new XMLWriter(new FileWriter(new File(xmlFile)));
+			output = new XMLWriter(new FileOutputStream(new File(xmlFile)));
 			output.write(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			r = false;
 		} finally {
-			if (output != null) try {
-				output.close();
-			} catch (IOException e) {
-			}
+			if (output != null)
+				try {
+					output.close();
+				} catch (IOException e) {
+				}
 		}
 		return r;
 	}
@@ -278,7 +299,11 @@ public class EMenuDaoImpl implements EMenuDao {
 	private long getMaxId(String xml, String xpath) {
 		SAXReader saxReader = new SAXReader();
 		Document document = null;
-		long max = 1;
+		long max = 0;
+		File xf = new File(xml);
+		if (!xf.exists()) {
+			return max;
+		}
 		try {
 			document = saxReader.read(xml);
 			Iterator iter = document.selectNodes(xpath).iterator();
@@ -326,16 +351,17 @@ public class EMenuDaoImpl implements EMenuDao {
 					r = true;
 				}
 			}
-			output = new XMLWriter(new FileWriter(new File(xmlFile)));
+			output = new XMLWriter(new FileOutputStream(new File(xmlFile)));
 			output.write(document);
 		} catch (Exception e) {
 			e.printStackTrace();
 			r = false;
 		} finally {
-			if (output != null) try {
-				output.close();
-			} catch (IOException e) {
-			}
+			if (output != null)
+				try {
+					output.close();
+				} catch (IOException e) {
+				}
 		}
 		return r;
 	}
