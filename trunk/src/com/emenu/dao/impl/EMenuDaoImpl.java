@@ -2,8 +2,8 @@ package com.emenu.dao.impl;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,6 +23,9 @@ import com.emenu.models.Dish;
 import com.emenu.models.MenuItem;
 
 public class EMenuDaoImpl implements EMenuDao {
+
+	private static final String UTF_8 = "UTF-8";
+	private static final String DISH = "Dish_";
 
 	@Override
 	public List<MenuItem> loadMenus() {
@@ -77,11 +80,10 @@ public class EMenuDaoImpl implements EMenuDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (output != null)
-				try {
-					output.close();
-				} catch (IOException e) {
-				}
+			if (output != null) try {
+				output.close();
+			} catch (IOException e) {
+			}
 		}
 	}
 
@@ -92,7 +94,7 @@ public class EMenuDaoImpl implements EMenuDao {
 		if (html == null) {
 			return;
 		}
-		String descFile = "dishes/" + getHtmlFileName(dish.getName());
+		String descFile = "dishes/" + getHtmlFileName(genDishName(dish.getId()));
 
 		SAXReader saxReader = new SAXReader();
 		Document document = null;
@@ -128,11 +130,10 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			removeFile(html);
 		} finally {
-			if (output != null)
-				try {
-					output.close();
-				} catch (IOException e) {
-				}
+			if (output != null) try {
+				output.close();
+			} catch (IOException e) {
+			}
 		}
 
 	}
@@ -151,12 +152,13 @@ public class EMenuDaoImpl implements EMenuDao {
 	private String saveDesc2Html4Dish(Dish dish) {
 		Writer writer = null;
 		try {
-			String fn = XmlUtils.getInstance().getDescFilePath() + getHtmlFileName(dish.getName());
-			writer = new FileWriter(fn, true);
+			String fn = XmlUtils.getInstance().getDescFilePath() + getHtmlFileName(genDishName(dish.getId()));
+			writer = new OutputStreamWriter(new FileOutputStream(fn), UTF_8);
 
 			StringBuilder sb = new StringBuilder();
 			sb.append("<!DOCTYPE HTML><html xmlns=\"http://www.w3.org/1999/xhtml\">");
 			sb.append("<head>");
+			sb.append("<meta charset='utf-8'>");
 			sb.append("<title>").append(dish.getName()).append("</title>");
 			sb.append("</head><body>");
 			sb.append("\n");
@@ -180,6 +182,10 @@ public class EMenuDaoImpl implements EMenuDao {
 				}
 			}
 		}
+	}
+
+	private String genDishName(long id) {
+		return DISH + id;
 	}
 
 	private String getHtmlFileName(String fileName) {
@@ -238,11 +244,10 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			r = false;
 		} finally {
-			if (output != null)
-				try {
-					output.close();
-				} catch (IOException e) {
-				}
+			if (output != null) try {
+				output.close();
+			} catch (IOException e) {
+			}
 		}
 		return r;
 	}
@@ -271,11 +276,10 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			r = false;
 		} finally {
-			if (output != null)
-				try {
-					output.close();
-				} catch (IOException e) {
-				}
+			if (output != null) try {
+				output.close();
+			} catch (IOException e) {
+			}
 		}
 		return r;
 	}
@@ -357,11 +361,10 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			r = false;
 		} finally {
-			if (output != null)
-				try {
-					output.close();
-				} catch (IOException e) {
-				}
+			if (output != null) try {
+				output.close();
+			} catch (IOException e) {
+			}
 		}
 		return r;
 	}
