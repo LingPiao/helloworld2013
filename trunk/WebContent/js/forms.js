@@ -95,10 +95,17 @@ function editMenu(){
 	}
 }
 
+function removeConfirm(){
+	return confirm("Remove the selected item(s)?");
+}
+
 function removeMenus(){
 	var sm = Ext.getCmp('grid-panel').getSelectionModel();
 	var slct = sm.getSelection();
 	if(slct && slct.length>0){
+		if(!removeConfirm()){
+			return;
+		}
 		var ids = '';
 		for(var i=0;i<slct.length;i++){
 			if(i<1){
@@ -448,6 +455,9 @@ function removeDishes(){
 	var sm = Ext.getCmp('dish-panel').getSelectionModel();
 	var slct = sm.getSelection();
 	if(slct && slct.length>0){
+		if(!removeConfirm()){
+			return;
+		}
 		var ids = '';
 		for(var i=0;i<slct.length;i++){
 			if(i<1){
