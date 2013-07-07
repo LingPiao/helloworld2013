@@ -139,7 +139,7 @@ Ext.define('Ext.ux.form.HtmlEditor.Image', {
         })
 
         var win = new Ext.Window({
-                    title : "Upload image",
+                    title : "Upload Objects(image,mp3 or mp4)",
                     width : 400,
                     height : 120,
                     modal : true,
