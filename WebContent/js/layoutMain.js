@@ -44,13 +44,13 @@ Ext.onReady(function() {
 	});
 
 	function reloadMenu() {
-		menuStore.proxy.url = './data/' + language + '/MainMenu.xml';
+		menuStore.proxy.url = './loadXml?language=' + language + '&xml=MainMenu.xml';
 		menuStore.removeAll();
 		menuStore.load();
 	}
 
 	function reloadDish() {
-		dishStore.proxy.url = './data/' + language + '/Dishes.xml';
+		dishStore.proxy.url = './loadXml?language=' + language + '&xml=Dishes.xml';
 		dishStore.removeAll();
 		dishStore.load();
 	}
@@ -138,7 +138,7 @@ Ext.onReady(function() {
 		proxy : {
 			// load using HTTP
 			type : 'ajax',
-			url : './data/' + language + '/MainMenu.xml',
+			url : './loadXml?language=' + language + '&xml=MainMenu.xml',
 			// the return will be XML, so lets set up a reader
 			reader : {
 				type : 'xml',
@@ -218,7 +218,7 @@ Ext.onReady(function() {
 		proxy : {
 			// load using HTTP
 			type : 'ajax',
-			url : './data/' + language + '/Dishes.xml',
+			url : './loadXml?language=' + language + '&xml=Dishes.xml',
 			// the return will be XML, so lets set up a reader
 			reader : {
 				type : 'xml',
