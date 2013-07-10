@@ -22,6 +22,12 @@
 		<description></description>
 		<servlet-class>com.emenu.action.UploadAction</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>LoadXml</servlet-name>
+		<display-name>LoadXml</display-name>
+		<description></description>
+		<servlet-class>com.emenu.action.LoadXmlAction</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>MenuEdit</servlet-name>
@@ -36,6 +42,10 @@
 	<servlet-mapping>
 		<servlet-name>UploadAction</servlet-name>
 		<url-pattern>/upload</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LoadXml</servlet-name>
+		<url-pattern>/loadXml</url-pattern>
 	</servlet-mapping>
 
 

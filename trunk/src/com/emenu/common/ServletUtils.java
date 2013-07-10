@@ -48,6 +48,12 @@ public class ServletUtils {
 		out.print(msg);
 	}
 
+	public static void responseWriteXML(HttpServletResponse response, String msg) throws IOException {
+		setEncodingXML(response);
+		PrintWriter out = response.getWriter();
+		out.print(msg);
+	}
+
 	public static void responseJSonWrite(HttpServletResponse response, Map<String, String> values) throws IOException {
 		setEncodingType(response);
 		PrintWriter out = response.getWriter();
@@ -67,6 +73,11 @@ public class ServletUtils {
 
 	private static void setEncodingType(HttpServletResponse response) {
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+	}
+
+	private static void setEncodingXML(HttpServletResponse response) {
+		response.setHeader("Content-type", "text/xml;charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 	}
 

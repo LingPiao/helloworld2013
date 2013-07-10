@@ -99,9 +99,24 @@ public class XmlUtils {
 	}
 
 	public String readHtml(String fileName) {
+		File file = new File(this.getPath("/" + fileName));
+		String fcontent = readFile(file);
+		return fixPath4HtmlRead(removeHtmlTags(fcontent));
+	}
+
+	public String loadMenu() {
+		File xml = new File(getMainMenuXml());
+		return readFile(xml);
+	}
+
+	public String loadDish() {
+		File xml = new File(getDishesXml());
+		return readFile(xml);
+	}
+
+	private String readFile(File file) {
 		StringBuilder sb = new StringBuilder();
 
-		File file = new File(this.getPath("/" + fileName));
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new FileReader(file));
@@ -120,7 +135,7 @@ public class XmlUtils {
 				}
 			}
 		}
-		return fixPath4HtmlRead(removeHtmlTags(sb.toString()));
+		return sb.toString();
 	}
 
 	public long getMaxId4Menu() {
