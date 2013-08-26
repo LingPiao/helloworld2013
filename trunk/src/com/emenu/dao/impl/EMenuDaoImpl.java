@@ -73,10 +73,10 @@ public class EMenuDaoImpl implements EMenuDao {
 			root.add(itemElement);
 			itemElement.addAttribute("id", String.valueOf(menuItem.getId()));
 			itemElement.addAttribute("name", menuItem.getName());
-			itemElement.addAttribute("isSpecial", menuItem.isSpecial() ? "true" : "false");
 
 			output = new XMLWriter(new FileOutputStream(new File(xml)));
 			output.write(document);
+			output.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -120,6 +120,7 @@ public class EMenuDaoImpl implements EMenuDao {
 			itemElement.addAttribute("image", dish.getImage());
 			itemElement.addAttribute("file", dish.getFile());
 			itemElement.addAttribute("enabled", dish.isEnabled() ? "true" : "false");
+			itemElement.addAttribute("recommended", dish.isRecommended() ? "true" : "false");
 			itemElement.addAttribute("price", String.valueOf(dish.getPrice()));
 			itemElement.addAttribute("file", descFile);
 			itemElement.addText(dish.getIntroduction());
@@ -348,10 +349,6 @@ public class EMenuDaoImpl implements EMenuDao {
 				if (Long.parseLong(i.getText()) == menuItem.getId()) {
 					Attribute n = e.attribute("name");
 					n.setValue(menuItem.getName());
-
-					Attribute isp = e.attribute("isSpecial");
-					isp.setValue(menuItem.isSpecial() ? "true" : "false");
-
 					r = true;
 				}
 			}

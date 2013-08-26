@@ -12,6 +12,7 @@ public class Dish {
 	private float price;
 	private String introduction;
 	private String description;
+	private boolean recommended;
 
 	public long getId() {
 		return id;
@@ -83,6 +84,14 @@ public class Dish {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public boolean isRecommended() {
+		return recommended;
+	}
+
+	public void setRecommended(boolean recommended) {
+		this.recommended = recommended;
 	}
 
 }

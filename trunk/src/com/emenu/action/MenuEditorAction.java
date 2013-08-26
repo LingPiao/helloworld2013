@@ -51,8 +51,7 @@ public class MenuEditorAction extends HttpServlet {
 		XmlUtils xmlUtils = XmlUtils.build(language, appPath);
 		System.out.println("=============action:" + action);
 		if ("add".equals(action)) {
-			boolean isSpecial = ServletUtils.getBooleanValue(request, "isSpecial");
-			MenuItem mi = new MenuItem(xmlUtils.getMaxId4Menu(), name, isSpecial);
+			MenuItem mi = new MenuItem(xmlUtils.getMaxId4Menu(), name);
 			emenuDao.saveMenu(mi);
 		} else if ("edit".equals(action)) {
 			String id = ServletUtils.getStringValue(request, "id");

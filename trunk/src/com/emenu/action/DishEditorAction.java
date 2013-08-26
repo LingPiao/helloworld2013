@@ -44,8 +44,7 @@ public class DishEditorAction extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (appPath == null)
-			appPath = this.getServletContext().getRealPath("/");
+		if (appPath == null) appPath = this.getServletContext().getRealPath("/");
 		String action = ServletUtils.getStringValue(request, "action");
 		String language = ServletUtils.getStringValue(request, "language");
 		XmlUtils.build(language, appPath);
@@ -76,7 +75,8 @@ public class DishEditorAction extends HttpServlet {
 		String img = ServletUtils.getStringValue(request, "img");
 		// String descFile = ServletUtils.getStringValue(request, "file");
 		String belongsTo = ServletUtils.getStringValue(request, "belongsTo");
-		String enabled = ServletUtils.getStringValue(request, "enabled");
+		boolean enabled = ServletUtils.getBooleanValue(request, "enabled");
+		boolean recommended = ServletUtils.getBooleanValue(request, "recommended");
 		String introduction = ServletUtils.getStringValue(request, "introduction");
 		String description = ServletUtils.getStringValue(request, "description");
 
@@ -94,7 +94,8 @@ public class DishEditorAction extends HttpServlet {
 		} else {
 			d.setImage(imgParent + img);
 		}
-		d.setEnabled("1".equals(enabled));
+		d.setEnabled(enabled);
+		d.setRecommended(recommended);
 		// d.setFile(descFile);
 		d.setIntroduction(introduction);
 		d.setBelongsTo(ServletUtils.getIds(belongsTo));

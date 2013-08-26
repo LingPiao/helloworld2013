@@ -17,11 +17,6 @@ var fmMenu = new Ext.widget({
 			afterLabelTextTpl: fieldRequiredTip,
 			allowBlank: false
            },{
-				xtype: 'checkboxfield',
-				name: 'isSpecial',
-				inputValue: 1,
-				fieldLabel: 'isSpecial'
-		   },{
 			   xtype:'hidden',
 				name:'id',
 				value:''
@@ -45,8 +40,7 @@ var fmMenu = new Ext.widget({
                             params : {name: basicForm.findField('id').getValue(),
 									  name: basicForm.findField('name').getValue(),
 								      action: basicForm.findField('action').getValue(),
-								      language:basicForm.findField('language').getValue(),
-								      isSpecial:basicForm.findField('isSpecial').getValue()
+								      language:basicForm.findField('language').getValue()
 							},
                             success : function(form,action){
 								 menuStore.load();
@@ -88,8 +82,7 @@ function editMenu(){
 		//alert('ID='+slct[0].get('id')+',Name='+slct[0].get('name'));
 		var id = slct[0].get('id');
 		var name = slct[0].get('name');
-		var isSpecial = slct[0].get('isSpecial');
-		updateMenuForm('edit',id,name,isSpecial);		
+		updateMenuForm('edit',id,name);		
 	}else{
 		alert('Select one item to edit');
 	}
@@ -140,7 +133,6 @@ function updateMenuForm(action,id,name,isSpecial){
 	if('edit'==action){
 		fm.findField('id').setValue(id);
 		fm.findField('name').setValue(name);
-		fm.findField('isSpecial').setValue(isSpecial);
 	    title='Edit a menu';
 	}else{
 		fm.findField('id').setValue('');
@@ -219,6 +211,12 @@ function genAddDishForm(){
 			allowBlank: false
 		}, {
 			xtype: 'checkboxfield',
+			name: 'recommended',
+			inputValue: 1,
+			fieldLabel: 'Recommended:',
+			boxLabel: 'Recommended'
+		}, {
+			xtype: 'checkboxfield',
 			name: 'enabled',
 			inputValue: 1,
 			fieldLabel: 'Enabled:',
@@ -267,6 +265,7 @@ function genAddDishForm(){
 							   introduction: basicForm.findField('introduction').getValue(),
 							   price: basicForm.findField('price').getValue(),
 							   enabled: basicForm.findField('enabled').getValue(),
+							   recommended: basicForm.findField('recommended').getValue(),
 							   belongsTo: sids,
 							   img: basicForm.findField('img').getValue(),
 							   description: basicForm.findField('description').getValue()
@@ -327,6 +326,13 @@ function genEditDishForm(mDish){
 			value: mDish.get('price')
 		}, {
 			xtype: 'checkboxfield',
+			name: 'recommended',
+			inputValue: 1,
+			fieldLabel: 'Recommended:',
+			checked: mDish.get('recommended')=='true',
+			boxLabel: 'Recommended'
+		}, {
+			xtype: 'checkboxfield',
 			name: 'enabled',
 			inputValue: 1,
 			fieldLabel: 'Enabled:',
@@ -376,6 +382,7 @@ function genEditDishForm(mDish){
 							   introduction: basicForm.findField('introduction').getValue(),
 							   price: basicForm.findField('price').getValue(),
 							   enabled: basicForm.findField('enabled').getValue(),
+							   recommended: basicForm.findField('recommended').getValue(),
 							   belongsTo: sids,
 							   img: basicForm.findField('img').getValue(),
 							   description: basicForm.findField('description').getValue()

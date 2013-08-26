@@ -125,9 +125,6 @@ Ext.onReady(function() {
 		}, {
 			name : 'name',
 			mapping : '@name'
-		}, {
-			name : 'isSpecial',
-			mapping : '@isSpecial'
 		}  ]
 	});
 
@@ -166,10 +163,6 @@ Ext.onReady(function() {
 			text : "Name",
 			dataIndex : 'name',
 			width : 350
-		}, {
-			text : "IsSpecial",
-			dataIndex : 'isSpecial',
-			width : 60
 		} ],
 		// renderTo:'gridView',
 		// width: 300,
@@ -195,6 +188,9 @@ Ext.onReady(function() {
 		}, {
 			name : 'belongsTo',
 			mapping : '@belongsTo'
+		}, {
+			name : 'recommended',
+			mapping : '@recommended'
 		}, {
 			name : 'enabled',
 			mapping : '@enabled'
@@ -251,6 +247,10 @@ Ext.onReady(function() {
 			dataIndex : 'belongsTo',
 			renderer: belongsToRender,
 			width : 350
+		}, {
+			text : "Recommended",
+			dataIndex : 'recommended',
+			width : 60
 		}, {
 			text : "Enabled",
 			dataIndex : 'enabled',
