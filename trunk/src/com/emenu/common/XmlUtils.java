@@ -2,8 +2,9 @@ package com.emenu.common;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -116,10 +117,9 @@ public class XmlUtils {
 
 	private String readFile(File file) {
 		StringBuilder sb = new StringBuilder();
-
 		BufferedReader reader = null;
 		try {
-			reader = new BufferedReader(new FileReader(file));
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 			String tempString = null;
 			while ((tempString = reader.readLine()) != null) {
 				sb.append(tempString);
@@ -162,11 +162,8 @@ public class XmlUtils {
 
 	public static void main(String[] args) {
 		XmlUtils.build("en_US", "E:/emenu/MenuEditor/MenuEditor/WebContent/");
-		System.out
-				.println(XmlUtils
-						.getInstance()
-						.removeHtmlTags(
-								"<!DOCTYPE HTML><html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>test</title></head><body>This is a test dish</body></html>"));
+		System.out.println(XmlUtils.getInstance().removeHtmlTags(
+				"<!DOCTYPE HTML><html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>test</title></head><body>This is a test dish</body></html>"));
 
 		System.out.println("xxx.aaa.jpg=" + XmlUtils.getInstance().isImage("xxx.aaa.jpg"));
 		System.out.println("xxx.aaa.PNG=" + XmlUtils.getInstance().isImage("xxx.aaa.png"));
