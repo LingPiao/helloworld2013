@@ -79,6 +79,9 @@ public class DishEditorAction extends HttpServlet {
 		boolean recommended = ServletUtils.getBooleanValue(request, "recommended");
 		String introduction = ServletUtils.getStringValue(request, "introduction");
 		String description = ServletUtils.getStringValue(request, "description");
+		if (description != null) {
+			description = description.replaceAll("http://localhost:8080/menuEditor/", "");
+		}
 
 		Dish d = new Dish();
 		d.setName(name);
