@@ -70,6 +70,7 @@ public class DishEditorAction extends HttpServlet {
 
 	private Dish getDish(HttpServletRequest request) {
 		String id = ServletUtils.getStringValue(request, "id");
+		String dishNumber = ServletUtils.getStringValue(request, "dishNumber");
 		String name = ServletUtils.getStringValue(request, "name");
 		String price = ServletUtils.getStringValue(request, "price");
 		String img = ServletUtils.getStringValue(request, "img");
@@ -90,6 +91,13 @@ public class DishEditorAction extends HttpServlet {
 		} else {
 			d.setId(Long.parseLong(id));
 		}
+
+		if (dishNumber == null || dishNumber.trim().length() < 1) {
+			d.setDishNumber("0");
+		} else {
+			d.setDishNumber(dishNumber);
+		}
+
 		d.setPrice(Float.parseFloat(price));
 		String imgParent = "dishes/images/";
 		if (img.startsWith(imgParent)) {
@@ -107,5 +115,4 @@ public class DishEditorAction extends HttpServlet {
 		return d;
 
 	}
-
 }

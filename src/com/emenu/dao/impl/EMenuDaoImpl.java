@@ -115,6 +115,7 @@ public class EMenuDaoImpl implements EMenuDao {
 			Element itemElement = DocumentHelper.createElement("Dish");
 			root.add(itemElement);
 			itemElement.addAttribute("id", String.valueOf(dish.getId()));
+			itemElement.addAttribute("dishNumber", dish.getDishNumber());
 			itemElement.addAttribute("name", dish.getName());
 			itemElement.addAttribute("belongsTo", ServletUtils.getIds(dish.getBelongsTo()));
 			itemElement.addAttribute("image", dish.getImage());

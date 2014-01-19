@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Dish {
 	private long id;
+	private String dishNumber;
 	private String name;
 	private List<Long> belongsTo;
 	private String image;
@@ -92,6 +93,14 @@ public class Dish {
 
 	public void setRecommended(boolean recommended) {
 		this.recommended = recommended;
+	}
+
+	public String getDishNumber() {
+		return dishNumber;
+	}
+
+	public void setDishNumber(String dishNumber) {
+		this.dishNumber = dishNumber;
 	}
 
 }
