@@ -191,6 +191,12 @@ function genAddDishForm(){
 
 		items: [{
 			xtype: 'textfield',
+			name: 'dishNumber',
+			fieldLabel: 'DishNumber',
+			afterLabelTextTpl: fieldRequiredTip,
+			allowBlank: false
+		}, {
+			xtype: 'textfield',
 			name: 'dishName',
 			fieldLabel: 'Name',
 			afterLabelTextTpl: fieldRequiredTip,
@@ -262,6 +268,7 @@ function genAddDishForm(){
 						   waitMsg : 'Submitting...',
 						   params : {
 							   name: basicForm.findField('dishName').getValue(),
+							   dishNumber: basicForm.findField('dishNumber').getValue(),
 							   introduction: basicForm.findField('introduction').getValue(),
 							   price: basicForm.findField('price').getValue(),
 							   enabled: basicForm.findField('enabled').getValue(),
@@ -302,6 +309,13 @@ function genEditDishForm(mDish){
 		},
 
 		items: [{
+			xtype: 'textfield',
+			name: 'dishNumber',
+			fieldLabel: 'DishNumber',
+			afterLabelTextTpl: fieldRequiredTip,
+			allowBlank: false,
+			value: mDish.get('dishNumber')
+		}, {
 			xtype: 'textfield',
 			name: 'dishName',
 			fieldLabel: 'Name',
@@ -378,6 +392,7 @@ function genEditDishForm(mDish){
 						   waitMsg : 'Submitting...',
 						   params : {
 							   id: mDish.get('id'),
+							   dishNumber: basicForm.findField('dishNumber').getValue(),
 							   name: basicForm.findField('dishName').getValue(),
 							   introduction: basicForm.findField('introduction').getValue(),
 							   price: basicForm.findField('price').getValue(),

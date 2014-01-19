@@ -180,6 +180,9 @@ Ext.onReady(function() {
 			name : 'id',
 			mapping : '@id'
 		}, {
+			name : 'dishNumber',
+			mapping : '@dishNumber'
+		}, {
 			name : 'name',
 			mapping : '@name'
 		}, {
@@ -239,6 +242,10 @@ Ext.onReady(function() {
 			dataIndex : 'id',
 			width : 60
 		}, {
+			text : "DishNumber",
+			dataIndex : 'dishNumber',
+			width : 80
+		}, {
 			text : "Name",
 			dataIndex : 'name',
 			width : 200
@@ -250,7 +257,7 @@ Ext.onReady(function() {
 		}, {
 			text : "Recommended",
 			dataIndex : 'recommended',
-			width : 60
+			width : 90
 		}, {
 			text : "Enabled",
 			dataIndex : 'enabled',
