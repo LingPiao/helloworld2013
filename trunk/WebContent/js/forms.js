@@ -231,7 +231,7 @@ function genAddDishForm(){
 			xtype: 'checkboxgroup',
 			name: 'belongsTo',
 			id: 'belongsTo',
-			//columns: 1,
+			columns: 5,
 			//vertical: true,
 			fieldLabel: 'Belongs to',
 			anchor: '90%',
@@ -357,6 +357,7 @@ function genEditDishForm(mDish){
 			name: 'belongsTo',
 			id: 'belongsTo',
 			fieldLabel: 'Belongs to',
+			columns: 5,
 			anchor: '90%',
 			items: genCheckBoxGroupOfMenus(mDish.get('belongsTo'))
 		}, {
