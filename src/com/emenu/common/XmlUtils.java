@@ -13,6 +13,8 @@ import com.emenu.dao.impl.EMenuDaoImpl;
 
 public class XmlUtils {
 
+	public final static String DEFAULT_NUMBER = "0";
+
 	private final static String DATA = "data/";
 	private final static String MAIN_MENU_XML = "/MainMenu.xml";
 	private final static String DISHES_XML = "/Dishes.xml";
@@ -162,8 +164,7 @@ public class XmlUtils {
 
 	public static void main(String[] args) {
 		XmlUtils.build("en_US", "E:/emenu/MenuEditor/MenuEditor/WebContent/");
-		System.out.println(XmlUtils.getInstance().removeHtmlTags(
-				"<!DOCTYPE HTML><html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>test</title></head><body>This is a test dish</body></html>"));
+		System.out.println(XmlUtils.getInstance().removeHtmlTags("<!DOCTYPE HTML><html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>test</title></head><body>This is a test dish</body></html>"));
 
 		System.out.println("xxx.aaa.jpg=" + XmlUtils.getInstance().isImage("xxx.aaa.jpg"));
 		System.out.println("xxx.aaa.PNG=" + XmlUtils.getInstance().isImage("xxx.aaa.png"));

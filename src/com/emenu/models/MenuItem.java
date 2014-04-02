@@ -3,10 +3,12 @@ package com.emenu.models;
 public class MenuItem {
 	private long id;
 	private String name;
+	private String menuNumber;
 
-	public MenuItem(long id, String name) {
+	public MenuItem(long id, String name, String menuNumber) {
 		this.id = id;
 		this.name = name;
+		this.menuNumber = menuNumber;
 	}
 
 	public long getId() {
@@ -25,9 +27,17 @@ public class MenuItem {
 		this.name = name;
 	}
 
+	public String getMenuNumber() {
+		return menuNumber;
+	}
+
+	public void setMenuNumber(String menuNumber) {
+		this.menuNumber = menuNumber;
+	}
+
 	@Override
 	public String toString() {
-		return "MenuItem [id=" + id + ", name=" + name + "]";
+		return "MenuItem [id=" + id + ", name=" + name + ", menuNumber=" + menuNumber + "]";
 	}
 
 }

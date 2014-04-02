@@ -125,7 +125,10 @@ Ext.onReady(function() {
 		}, {
 			name : 'name',
 			mapping : '@name'
-		}  ]
+		}, {
+			name : 'menuNumber',
+			mapping : '@menuNumber'
+		}   ]
 	});
 
 	// create the Data Store
@@ -163,6 +166,10 @@ Ext.onReady(function() {
 			text : "Name",
 			dataIndex : 'name',
 			width : 350
+		}, {
+			text : "MenuNumber",
+			dataIndex : 'menuNumber',
+			width : 100
 		} ],
 		// renderTo:'gridView',
 		// width: 300,
@@ -277,7 +284,7 @@ Ext.onReady(function() {
 		for(var i=0;i<idList.length;i++){
 			var mn = menuStore.getById(idList[i]).get('name');
 			if( i==0 ){
-				menuNames = mn
+				menuNames = mn;
 			}else{
 				menuNames = menuNames+', '+mn;
 			}
