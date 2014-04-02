@@ -10,22 +10,29 @@ var fmMenu = new Ext.widget({
 	border: false,
     fieldDefaults: {
          msgTarget: 'under',
-         labelWidth: 50
+         labelWidth: 80
     },
-    items:[{fieldLabel:'Name', 
-			name:'name',
-			afterLabelTextTpl: fieldRequiredTip,
-			allowBlank: false
+    items:[{
+    			fieldLabel:'Name', 
+				name:'name',
+				afterLabelTextTpl: fieldRequiredTip,
+				allowBlank: false
            },{
-			   xtype:'hidden',
+				xtype: 'textfield',
+				name: 'menuNumber',
+				fieldLabel: 'MenuNumber',
+				afterLabelTextTpl: fieldRequiredTip,
+				allowBlank: false
+           },{
+			    xtype:'hidden',
 				name:'id',
 				value:''
            },{
-			   xtype:'hidden',
+			    xtype:'hidden',
 				name:'action',
 				value:'add'
            },{
-			   xtype:'hidden',
+			    xtype:'hidden',
 				name:'language',
 				value:language
            }
@@ -37,8 +44,9 @@ var fmMenu = new Ext.widget({
                             url : './menuEdit',  
                             method : 'post',  
                             waitMsg : 'Submitting...',
-                            params : {name: basicForm.findField('id').getValue(),
+                            params : {id: basicForm.findField('id').getValue(),
 									  name: basicForm.findField('name').getValue(),
+									  menuNumber: basicForm.findField('menuNumber').getValue(),
 								      action: basicForm.findField('action').getValue(),
 								      language:basicForm.findField('language').getValue()
 							},
@@ -66,7 +74,7 @@ function showMenuWin(title){
             closeAction: 'hide',
             layout: 'fit',
             items:[fmMenu]
-        })	
+        });	
 	}
 	winMenu.setTitle(title);
 	winMenu.show();
@@ -82,7 +90,8 @@ function editMenu(){
 		//alert('ID='+slct[0].get('id')+',Name='+slct[0].get('name'));
 		var id = slct[0].get('id');
 		var name = slct[0].get('name');
-		updateMenuForm('edit',id,name);		
+		var menuNumber = slct[0].get('menuNumber');
+		updateMenuForm('edit',id,name,menuNumber);		
 	}else{
 		alert('Select one item to edit');
 	}
@@ -125,7 +134,7 @@ function removeMenus(){
 	}
 }
 
-function updateMenuForm(action,id,name,isSpecial){
+function updateMenuForm(action,id,name,menuNumber,isSpecial){
 	var fm = fmMenu.getForm();
 	fm.findField('language').setValue(language);
 	fm.findField('action').setValue(action);
@@ -133,11 +142,16 @@ function updateMenuForm(action,id,name,isSpecial){
 	if('edit'==action){
 		fm.findField('id').setValue(id);
 		fm.findField('name').setValue(name);
+		fm.findField('menuNumber').setValue(menuNumber);
 	    title='Edit a menu';
 	}else{
 		fm.findField('id').setValue('');
-		fm.findField('name').setValue('');
-		fm.findField('name').clearInvalid();
+		var n = fm.findField('name');
+		n.setValue('');
+		n.clearInvalid();
+		var mn = fm.findField('menuNumber');
+		mn.setValue('');
+		mn.clearInvalid();
 		title='Add a new menu';
 	}
 	showMenuWin(title);
@@ -169,8 +183,8 @@ function isValueInList(value,list){
 		return false;
 	}
 	ckdList = list.split(',');
-	for(var i=0;i<list.length;i++){
-		if(value == list[i]){
+	for(var i=0;i<ckdList.length;i++){
+		if(value == ckdList[i]){
 			return true;
 		}
 	}

@@ -44,18 +44,23 @@ public class MenuEditorAction extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (appPath == null) appPath = this.getServletContext().getRealPath("/");
+		if (appPath == null)
+			appPath = this.getServletContext().getRealPath("/");
 		String action = ServletUtils.getStringValue(request, "action");
 		String name = ServletUtils.getStringValue(request, "name");
+		String menuNumber = ServletUtils.getStringValue(request, "menuNumber");
+		if (menuNumber == null) {
+			menuNumber = XmlUtils.DEFAULT_NUMBER;
+		}
 		String language = ServletUtils.getStringValue(request, "language");
 		XmlUtils xmlUtils = XmlUtils.build(language, appPath);
 		System.out.println("=============action:" + action);
 		if ("add".equals(action)) {
-			MenuItem mi = new MenuItem(xmlUtils.getMaxId4Menu(), name);
+			MenuItem mi = new MenuItem(xmlUtils.getMaxId4Menu(), name, menuNumber);
 			emenuDao.saveMenu(mi);
 		} else if ("edit".equals(action)) {
 			String id = ServletUtils.getStringValue(request, "id");
-			MenuItem mi = new MenuItem(Long.parseLong(id), name);
+			MenuItem mi = new MenuItem(Long.parseLong(id), name, menuNumber);
 			emenuDao.updateMenu(mi);
 		} else if ("remove".equals(action)) {
 			List<Long> ids = ServletUtils.getIds(request, "ids");

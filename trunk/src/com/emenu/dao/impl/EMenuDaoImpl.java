@@ -73,6 +73,7 @@ public class EMenuDaoImpl implements EMenuDao {
 			root.add(itemElement);
 			itemElement.addAttribute("id", String.valueOf(menuItem.getId()));
 			itemElement.addAttribute("name", menuItem.getName());
+			itemElement.addAttribute("menuNumber", String.valueOf(menuItem.getMenuNumber()));
 
 			output = new XMLWriter(new FileOutputStream(new File(xml)));
 			output.write(document);
@@ -80,10 +81,11 @@ public class EMenuDaoImpl implements EMenuDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (output != null) try {
-				output.close();
-			} catch (IOException e) {
-			}
+			if (output != null)
+				try {
+					output.close();
+				} catch (IOException e) {
+				}
 		}
 	}
 
@@ -132,10 +134,11 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			removeFile(html);
 		} finally {
-			if (output != null) try {
-				output.close();
-			} catch (IOException e) {
-			}
+			if (output != null)
+				try {
+					output.close();
+				} catch (IOException e) {
+				}
 		}
 
 	}
@@ -246,10 +249,11 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			r = false;
 		} finally {
-			if (output != null) try {
-				output.close();
-			} catch (IOException e) {
-			}
+			if (output != null)
+				try {
+					output.close();
+				} catch (IOException e) {
+				}
 		}
 		return r;
 	}
@@ -278,10 +282,11 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			r = false;
 		} finally {
-			if (output != null) try {
-				output.close();
-			} catch (IOException e) {
-			}
+			if (output != null)
+				try {
+					output.close();
+				} catch (IOException e) {
+				}
 		}
 		return r;
 	}
@@ -350,6 +355,13 @@ public class EMenuDaoImpl implements EMenuDao {
 				if (Long.parseLong(i.getText()) == menuItem.getId()) {
 					Attribute n = e.attribute("name");
 					n.setValue(menuItem.getName());
+					Attribute mn = e.attribute("menuNumber");
+					if (mn != null) {
+						mn.setValue(menuItem.getMenuNumber());
+					} else {
+						e.addAttribute("menuNumber", menuItem.getMenuNumber());
+					}
+
 					r = true;
 				}
 			}
@@ -359,10 +371,11 @@ public class EMenuDaoImpl implements EMenuDao {
 			e.printStackTrace();
 			r = false;
 		} finally {
-			if (output != null) try {
-				output.close();
-			} catch (IOException e) {
-			}
+			if (output != null)
+				try {
+					output.close();
+				} catch (IOException e) {
+				}
 		}
 		return r;
 	}
