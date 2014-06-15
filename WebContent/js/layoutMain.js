@@ -121,12 +121,14 @@ Ext.onReady(function() {
 		},
 		fields : [ {
 			name : 'id',
+			type : 'int',
 			mapping : '@id'
 		}, {
 			name : 'name',
 			mapping : '@name'
 		}, {
 			name : 'menuNumber',
+			type : 'int',
 			mapping : '@menuNumber'
 		}   ]
 	});
@@ -147,7 +149,8 @@ Ext.onReady(function() {
 				idProperty : 'id'
 			// totalRecords: '@total'
 			}
-		}
+		},
+		sorters: { property: 'menuNumber', direction : 'ASC' }
 	});
 
 	// create the grid
@@ -158,11 +161,7 @@ Ext.onReady(function() {
 		store : menuStore,
 		selModel : Ext.create('Ext.selection.CheckboxModel'),
 		tbar : menuTools,
-		columns : [ {
-			text : "ID",
-			dataIndex : 'id',
-			width : 60
-		}, {
+		columns : [  {
 			text : "Name",
 			dataIndex : 'name',
 			width : 350
@@ -188,6 +187,7 @@ Ext.onReady(function() {
 			mapping : '@id'
 		}, {
 			name : 'dishNumber',
+			type : 'int',
 			mapping : '@dishNumber'
 		}, {
 			name : 'name',
@@ -233,7 +233,8 @@ Ext.onReady(function() {
 				idProperty : 'id'
 			// totalRecords: '@total'
 			}
-		}
+		},
+		sorters: { property: 'dishNumber', direction : 'ASC' }
 	});
 
 	// create the grid
@@ -244,11 +245,7 @@ Ext.onReady(function() {
 		store : dishStore,
 		selModel : Ext.create('Ext.selection.CheckboxModel'),
 		tbar : dishTools,
-		columns : [ {
-			text : "ID",
-			dataIndex : 'id',
-			width : 60
-		}, {
+		columns : [  {
 			text : "DishNumber",
 			dataIndex : 'dishNumber',
 			width : 80
@@ -282,7 +279,7 @@ Ext.onReady(function() {
 		var idList = ids.split(',');
 		var menuNames='';
 		for(var i=0;i<idList.length;i++){
-			var mn = menuStore.getById(idList[i]).get('name');
+			var mn = menuStore.getById(Number(idList[i])).get('name');
 			if( i==0 ){
 				menuNames = mn;
 			}else{
